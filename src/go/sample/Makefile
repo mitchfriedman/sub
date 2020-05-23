@@ -1,2 +1,2 @@
 install:
-	go build -o ../../../bin/sub-sample
+	go build -o ../../../bin/sample
