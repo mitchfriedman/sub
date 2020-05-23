@@ -5,4 +5,4 @@
 
 set -e
 
-$SUB_ROOT/bin/sample
+$_SUB_ROOT/bin/sample
