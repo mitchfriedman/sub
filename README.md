@@ -1,24 +1,6 @@
-# sub: a delicious way to organize programs
+# sub: a fork of [sub](https://github.com/basecamp/sub)
 
-Sub is a model for setting up shell programs that use subcommands, like `git` or `rbenv` using bash. Making a sub does not require you to write shell scripts in bash, you can write subcommands in any scripting language you prefer.
-
-A sub program is run at the command line using this style:
-
-    $ [name of program] [subcommand] [(args)]
-
-Here's some quick examples:
-
-    $ rbenv                    # prints out usage and subcommands
-    $ rbenv versions           # runs the "versions" subcommand
-    $ rbenv shell 1.9.3-p194   # runs the "shell" subcommand, passing "1.9.3-p194" as an argument
-
-Each subcommand maps to a separate, standalone executable program. Sub programs are laid out like so:
-
-    .
-    ├── bin               # contains the main executable for your program
-    ├── completions       # (optional) bash/zsh completions
-    ├── libexec           # where the subcommand executables are
-    └── share             # static data storage
+This is a fork of [sub](https://github.com/basecamp/sub) with an auto-updater and installer. This allows you to write commands in languages that might require some form of installation and in an environments where they change often with many engineers working with them. It removes the hassle of ensuring everyone updates their sub as needed.
 
 ## Subcommands
 
@@ -45,28 +27,6 @@ Of course, this is a simple example...but now `rush who` should work!
 
 You can run *any* executable in the `libexec` directly, as long as it follows the `NAME-SUBCOMMAND` convention. Try out a Ruby script or your favorite language!
 
-## What's on your sub
-
-You get a few commands that come with your sub:
-
-* `commands`: Prints out every subcommand available
-* `completions`: Helps kick off subcommand autocompletion.
-* `help`: Document how to use each subcommand
-* `init`: Shows how to load your sub with autocompletions, based on your shell.
-* `shell`: Helps with calling subcommands that might be named the same as builtin/executables.
-
-If you ever need to reference files inside of your sub's installation, say to access a file in the `share` directory, your sub exposes the directory path in the environment, based on your sub name. For a sub named `rush`, the variable name will be `_RUSH_ROOT`.
-
-Here's an example subcommand you could drop into your `libexec` directory to show this in action: (make sure to correct the name!)
-
-``` bash
-#!/usr/bin/env bash
-set -e
-
-echo $_RUSH_ROOT
-```
-
-You can also use this environment variable to call other commands inside of your `libexec` directly. Composition of this type very much encourages reuse of small scripts, and keeps scripts doing *one* thing simply.
 
 ## Self-documenting subcommands
 
@@ -141,17 +101,6 @@ fi
 Passing the `--complete` flag to this subcommand short circuits the real command, and then runs another subcommand instead. The output from your subcommand's `--complete` run is sent to your shell's autocompletion handler for you, and you don't ever have to once worry about how any of that works!
 
 Run the `init` subcommand after you've prepared your sub to get your sub loading automatically in your shell.
-
-## Shortcuts
-
-Creating shortcuts for commands is easy, just symlink the shorter version you'd like to run inside of your `libexec` directory.
-
-Let's say we want to shorten up our `rush who` to `rush w`. Just make a symlink!
-
-    cd libexec
-    ln -s rush-who rush-w
-
-Now, `rush w` should run `libexec/rush-who`, and save you mere milliseconds of typing every day!
 
 ## Prepare your sub
 
