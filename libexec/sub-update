@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Usage: sub update
+# Summary: Manually udpate from the remote source and re-install.
+
+set -e
+
+pushd $SUB_ROOT
+make update >>updater_error.log 2>&1
+popd
