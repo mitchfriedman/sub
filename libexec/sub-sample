@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Usage: sub sample
+# Summary: A sample command
+# Help: This is a saple command. Remove it.
+
+set -e
+
+$SUB_ROOT/bin/sample
