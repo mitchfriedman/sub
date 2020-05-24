@@ -2,7 +2,7 @@
 set -e
 
 # run the auto-updater on startup.
-make update >>updater_error.log 2>&1
+make update >>/dev/null 2>&1
 print=""
 if [ "$1" = "-" ]; then
   print=1
