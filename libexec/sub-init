@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-# run the auto-updater on startup.
-make update >>/dev/null 2>&1
 print=""
 if [ "$1" = "-" ]; then
   print=1
@@ -57,7 +55,10 @@ if [ -z "$print" ]; then
   exit 1
 fi
 
-echo "export PATH=\"\${PATH}:${_SUB_ROOT}/bin\""
+echo "export PATH=\"\${PATH}:${_OAK_ROOT}/bin\""
+# run the auto-updater on startup.
+python3 ${_OAK_ROOT}/tools/updater.py >> /dev/null
+python3 ${_OAK_ROOT}/tools/installer.py >> /dev/null
 
 case "$shell" in
 bash | zsh )

@@ -1,2 +1,4 @@
 bin/*
 update_error.log
+!bin/.gitkeep 
+!bin/oak
